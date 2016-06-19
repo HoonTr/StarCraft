@@ -11,16 +11,14 @@ public class Controller {
 		
 		Marine m1 = new Marine("마린1");
 		Marine m2 = new Marine("마린2");
+		FireBet f1 =new FireBet("파이어벳1");
+		FireBet f2 =new FireBet("파이어벳2");
 		
 	
-		m1.attack(m2);
-		
 		m1.state();
 		m2.state();
-		
-		m1.attack(m2);
-		m1.state();
-		m2.state();
+		f1.state();
+		f2.state();
 		
 		
 		
@@ -28,7 +26,6 @@ public class Controller {
 		
 		
 		
-//		
 //		int i= 0;
 //		while(i==0){
 //			System.out.println("-------------------------------------");
@@ -39,25 +36,22 @@ public class Controller {
 //			
 //			switch(num){
 //			case 1: 
-//				marine1.attack(marine2);
+//				m1.attack(m2);
 //				break;
 //			case 2:
-//				marine1.portion();
+//				m1.portion();
 //				break;
 //			case 3:
-//				marine1.upgrade();
+//				m1.upgrade();
 //				break;
 //			case 4:
-//				marine1.state();
+//				m1.state();
 //				break;
 //			default : 
 //				i=1;
 //				break;
-//			
-//					
 //				
 //			}
-//			
 //		}
 
 	
