@@ -18,6 +18,10 @@ public class Controller {
 		m1.state();
 		m2.state();
 		
+		m1.attack(m2);
+		m1.state();
+		m2.state();
+		
 		
 		
 		
