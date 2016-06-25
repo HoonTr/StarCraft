@@ -13,7 +13,7 @@ public class Controller {
 		Marine m2 = new Marine("마린2");
 		FireBet f1 =new FireBet("파이어벳1");
 		FireBet f2 =new FireBet("파이어벳2");
-		
+		FireBet f3 =new FireBet("파이어벳3");
 	
 		m1.state();
 		m2.state();
