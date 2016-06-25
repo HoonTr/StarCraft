@@ -5,6 +5,8 @@ public class Unit {
 	protected int hp;
 	protected int hit;
 	protected String name;
+	protected Location location;
+	
 	
 	
 	public Unit(int hp,int hit, String name){
@@ -12,16 +14,30 @@ public class Unit {
 		this.hp=hp;
 		this.hit=hit;
 		this.name=name;
+		this.location = new Location(0,0);
+		
 		
 	}
 	
+	public void right(){
+		this.location.work(0,1);
+	}
+	
+	public void up(){
+		this.location.work(1,0);
+	}
+	
+	
+
 	public void state(){
 	
 		System.out.println(this.name+"의 체력은 "+this.hp+"입니다."
 				+ "");
 		System.out.println(this.name+"의 공격력은 "+this.hit+"입니다.\n");
-		
+		System.out.println(this.location);
 	}
+	
+
 	
 	public void attack(Unit unit){
 		if(unit.hp<=0){
