@@ -9,106 +9,132 @@ import Model.Marine;
 import Model.Unit;
 
 public class Controller {
+	static List<Unit> list =new ArrayList<Unit>();
+	static Scanner scanner = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
-		List<Unit> list =new ArrayList<Unit>();
-		
-		
-		Scanner scanner = new Scanner(System.in);
-		
-		Marine m1 = new Marine("마린1");
-		Marine m2 = new Marine("마린2");
-		FireBet f1 =new FireBet("파이어벳1");
-		FireBet f2 =new FireBet("파이어벳2");
-	
-		
-		
 		while(true){
-			System.out.println("마린 생성 : 1");
-			System.out.println("파이어벳 생성 : 2");
-			System.out.println("현황 보기 : 3");
-			System.out.println("유닛 이동 : 4");
+			System.out.println("--------------------------------------------");
+			System.out.println(" 마린 생성:1   파이어벳 생성:2   현황  보기:3   유닛 이동:4");
+			System.out.println(" 공격 하기:5   유닛 체력회복:6   공격력증가:7   종료 하기:8");
+			System.out.println("--------------------------------------------");
 			
 			int input= scanner.nextInt();
 			
 			switch(input){
 			case 1:
-				
-				Marine marine = new Marine("마린");
+				System.out.println("마린의 이름:");
+				String name = scanner.next();
+				Marine marine = new Marine(name);
 				list.add(marine);
 				break;
 				
 			case 2:
-				FireBet firebet = new FireBet("파이어벳");
+				System.out.println("파이어벳의 이름:");
+				String name2 = scanner.next();
+				FireBet firebet = new FireBet(name2);
 				list.add(firebet);
 				break;
 				
 			case 3:
-				System.out.println(list.size()+"마리");
+				System.out.println("*총 "+ list.size()+"마리*");
 				
-				for(int i=0; i<list.size(); i++){
-					Unit unit = list.get(i);
-					System.out.println(i+1 +"번 유닛 :");
-					unit.state();
+				for (Unit unit2 : list) {
+					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+					unit2.state();
+					
 				}
 				
 				break;
 			case 4:
+				System.out.println("이동할 유닛을 선택하세요.\n선택가능한 유닛:");
 				
-				System.out.println("이동할 유닛을 선택하세요.\n선택가능한 유닛:"+list.size()+"\n");
+				for (Unit unit2 : list) {
+					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+					unit2.state();
+					
+				}
+				
 				int unitNum = scanner.nextInt()-1;
 				Unit unit = list.get(unitNum);
 				
-				System.out.println("오른쪽이동:1  위쪽이동:2");
-				int input2=scanner.nextInt();
-				switch(input2){
+				System.out.print("이동할 거리를 입력해주세요(x,y):\nx:");
+				int Dx=scanner.nextInt();
+				
+				System.out.print("y:");
+				int Dy=scanner.nextInt();
+		
+				unit.move(Dx, Dy);
+				break;
+				
+			case 5:
+				System.out.println("선택가능한 유닛:");
+				for (Unit unit2 : list) {
+					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+					unit2.state();
+					
+				}
+				System.out.println("공격할 유닛을 선택하세요 :");
+				int num = scanner.nextInt()-1;
+				
+				System.out.println("선택가능한 유닛:");
+				for (Unit unit2 : list) {
+					if(list.indexOf(unit2)!=num){
+						System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+						unit2.state();
+					}
+				}
+				System.out.println("누구를 공격하시겠습니까? \n");
+				int num2 = scanner.nextInt()-1;
+				
+				list.get(num).attack(list.get(num2));
+				
+				break;
+			case 6:
+				System.out.println("선택가능한 유닛:");
+				for (Unit unit2 : list) {
+					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+					unit2.state();
+				}
+				System.out.println("체력을 회복할 유닛을 선택하세요 :");
+				num = scanner.nextInt()-1;
+				System.out.println("1.고급물약(+30)   2.빨간물약(+10)   3.싸구려물약(+5)");
+				num2 = scanner.nextInt();
+				switch(num2){
 				case 1:
-					unit.right();
-					
+					list.get(num).portion(30);
 					break;
-					
 				case 2:
-					unit.up();
+					list.get(num).portion(10);
+					break;
+				case 3:
+					list.get(num).portion(5);
+					break;
+				default:
+					System.out.println("해당 물약이 없습니다.");
 					break;
 				}
+				break;
+			case 7:
+				System.out.println("선택가능한 유닛:");
+				for (Unit unit2 : list) {
+					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+					unit2.state();
+				}
+				System.out.println("공격력을 증가시킬 유닛을 선택하세요 :");
+				
+				num = scanner.nextInt()-1;
+				list.get(num).upgrade();
+				
+				break;
+			case 8:
+				System.out.println("종료되었습니다.");
+				return;
 			
+			default :
+				System.out.println("다시 입력하세요");
 			}
-			
-		
 		}
-		
-		
-		
-//		int i= 0;
-//		while(i==0){
-//			System.out.println("-------------------------------------");
-//			System.out.println("1.상대방공격  2.체력회복   3.업그레이드  4.상태보기");
-//			System.out.println("        (종료하시려면 아무키나 누르세요)       ");
-//			System.out.println("-------------------------------------");
-//			int num = scanner.nextInt();
-//			
-//			switch(num){
-//			case 1: 
-//				m1.attack(m2);
-//				break;
-//			case 2:
-//				m1.portion();
-//				break;
-//			case 3:
-//				m1.upgrade();
-//				break;
-//			case 4:
-//				m1.state();
-//				break;
-//			default : 
-//				i=1;
-//				break;
-//				
-//			}
-//		}
-
-	
-		
-		
 	}
 }

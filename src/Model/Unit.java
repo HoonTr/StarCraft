@@ -18,15 +18,11 @@ public class Unit {
 		
 		
 	}
-	
-	public void right(){
-		this.location.work(0,1);
+	public void move(int x, int y){
+		this.location.work(x, y);
+		
 	}
-	
-	public void up(){
-		this.location.work(1,0);
-	}
-	
+
 	
 
 	public void state(){
@@ -40,24 +36,28 @@ public class Unit {
 
 	
 	public void attack(Unit unit){
-		if(unit.hp<=0){
-			System.out.println("더이상 공격할 수 없습니다.");
+		double num = this.location.distance(unit.location);
+		if(num>=5){
+			System.out.println("거리가 멀어 공격할 수 없습니다");
 		}else{
-			
-			unit.hp = unit.hp - this.hit;
-			System.out.println(this.name +"이(가) " +unit.name+"을(를) 공격했습니다.\n"+unit.name+"의 hp가 "+this.hit+" 닳았습니다.\n");
+			if(unit.hp<=0){
+				System.out.println("더이상 공격할 수 없습니다.");
+			}else{
+				unit.hp = unit.hp - this.hit;
+				System.out.println(this.name +"이(가) " +unit.name+"을(를) 공격했습니다.\n"+unit.name+"의 hp가 "+this.hit+" 닳았습니다.\n");
 		
-			if(unit.hp <= 0){
-				System.out.println(unit.name +"의 hp가 0이 되어 죽었습니다.\n");
+				if(unit.hp <= 0){
+					System.out.println(unit.name +"의 hp가 0이 되어 죽었습니다.\n");
 				
+				}
 			}
 		}
 	}
 	
 	
-	public void portion(){
-		System.out.println(this.name +"이(가) 포션을 먹고 hp 10이 올랐습니다.");
-		this.hp = this.hp + 10;
+	public void portion(int x){
+		System.out.println(this.name +"이(가) 포션을 먹고 체력이 회복되었습니다.");
+		this.hp = this.hp + x;
 		System.out.println(this.name + "의 현재 hp: "+hp+"\n");
 	}
 
