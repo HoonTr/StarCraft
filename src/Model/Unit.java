@@ -6,13 +6,15 @@ public class Unit {
 	protected int hit;
 	protected String name;
 	protected Location location;
+	protected int range;
 	
 	
 	
-	public Unit(int hp,int hit, String name){
+	public Unit(int hp,int hit,int range, String name){
 	
 		this.hp=hp;
 		this.hit=hit;
+		this.range=range;
 		this.name=name;
 		this.location = new Location(0,0);
 		
@@ -27,8 +29,7 @@ public class Unit {
 
 	public void state(){
 	
-		System.out.println(this.name+"의 체력은 "+this.hp+"입니다."
-				+ "");
+		System.out.println(this.name+"의 체력은 "+this.hp+"입니다.");
 		System.out.println(this.name+"의 공격력은 "+this.hit+"입니다.\n");
 		System.out.println(this.location);
 	}
@@ -37,7 +38,7 @@ public class Unit {
 	
 	public void attack(Unit unit){
 		double num = this.location.distance(unit.location);
-		if(num>=5){
+		if(num>=this.range){
 			System.out.println("거리가 멀어 공격할 수 없습니다");
 		}else{
 			if(unit.hp<=0){

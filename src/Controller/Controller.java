@@ -48,76 +48,90 @@ public class Controller {
 				
 				break;
 			case 4:
-				System.out.println("이동할 유닛을 선택하세요.\n선택가능한 유닛:");
+				System.out.println("*선택가능한 유닛*");
 				
 				for (Unit unit2 : list) {
 					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
 					unit2.state();
 					
 				}
-				
+				System.out.println("\n이동할 유닛을 선택하세요:");
 				int unitNum = scanner.nextInt()-1;
-				Unit unit = list.get(unitNum);
+				if(unitNum+1 <=list.size()){
+					Unit unit = list.get(unitNum);
+					
+					System.out.print("이동할 거리를 입력해주세요(x,y):\nx:");
+					int Dx=scanner.nextInt();
+					
+					System.out.print("y:");
+					int Dy=scanner.nextInt();
+			
+					unit.move(Dx, Dy);
+					
+				}else{
+					System.out.println("이동할 수 없습니다");
+				}
 				
-				System.out.print("이동할 거리를 입력해주세요(x,y):\nx:");
-				int Dx=scanner.nextInt();
-				
-				System.out.print("y:");
-				int Dy=scanner.nextInt();
-		
-				unit.move(Dx, Dy);
 				break;
 				
 			case 5:
-				System.out.println("선택가능한 유닛:");
+				System.out.println("*선택가능한 유닛*");
 				for (Unit unit2 : list) {
 					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
 					unit2.state();
-					
 				}
 				System.out.println("공격할 유닛을 선택하세요 :");
 				int num = scanner.nextInt()-1;
-				
-				System.out.println("선택가능한 유닛:");
-				for (Unit unit2 : list) {
-					if(list.indexOf(unit2)!=num){
-						System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
-						unit2.state();
+				if(num+1 <=list.size()){
+					System.out.println("*선택가능한 유닛*");
+					for (Unit unit2 : list) {
+						if(list.indexOf(unit2)!=num){
+							System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
+							unit2.state();
+						}
 					}
+					System.out.println("누구를 공격하시겠습니까? \n");
+					int num2 = scanner.nextInt()-1;
+					if(num2+1 <=list.size()){
+						list.get(num).attack(list.get(num2));
+					}else{
+						System.out.println("공격할 수 없습니다.");
+					}
+				}else{
+					System.out.println("다시 선택하세요.");
 				}
-				System.out.println("누구를 공격하시겠습니까? \n");
-				int num2 = scanner.nextInt()-1;
-				
-				list.get(num).attack(list.get(num2));
-				
 				break;
 			case 6:
-				System.out.println("선택가능한 유닛:");
+				System.out.println("*선택가능한 유닛*");
 				for (Unit unit2 : list) {
 					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
 					unit2.state();
 				}
 				System.out.println("체력을 회복할 유닛을 선택하세요 :");
 				num = scanner.nextInt()-1;
-				System.out.println("1.고급물약(+30)   2.빨간물약(+10)   3.싸구려물약(+5)");
-				num2 = scanner.nextInt();
-				switch(num2){
-				case 1:
-					list.get(num).portion(30);
-					break;
-				case 2:
-					list.get(num).portion(10);
-					break;
-				case 3:
-					list.get(num).portion(5);
-					break;
-				default:
-					System.out.println("해당 물약이 없습니다.");
-					break;
+				if(num+1 <=list.size()){
+					System.out.println("1.고급물약(+30)   2.빨간물약(+10)   3.싸구려물약(+5)");
+					int num3 = scanner.nextInt();
+					switch(num3){
+					case 1:
+						list.get(num).portion(30);
+						break;
+					case 2:
+						list.get(num).portion(10);
+						break;
+					case 3:
+						list.get(num).portion(5);
+						break;
+					default:
+						System.out.println("해당 물약이 없습니다.");
+						break;
+					}
+				}else{
+					System.out.println("다시 선택하세요.");
 				}
 				break;
 			case 7:
-				System.out.println("선택가능한 유닛:");
+				System.out.println("*선택가능한 유닛*");
 				for (Unit unit2 : list) {
 					System.out.println(list.indexOf(unit2)+1 +"번 유닛:");
 					unit2.state();
@@ -125,8 +139,11 @@ public class Controller {
 				System.out.println("공격력을 증가시킬 유닛을 선택하세요 :");
 				
 				num = scanner.nextInt()-1;
-				list.get(num).upgrade();
-				
+				if(num+1 <=list.size()){
+					list.get(num).upgrade();
+				}else{
+					System.out.println("다시 선택하세요.");
+				}
 				break;
 			case 8:
 				System.out.println("종료되었습니다.");
