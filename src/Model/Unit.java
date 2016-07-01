@@ -37,10 +37,7 @@ public class Unit {
 
 	
 	public void attack(Unit unit){
-		double num = this.location.distance(unit.location);
-		if(num>=this.range){
-			System.out.println("거리가 멀어 공격할 수 없습니다");
-		}else{
+
 			if(unit.hp<=0){
 				System.out.println("더이상 공격할 수 없습니다.");
 			}else{
@@ -52,7 +49,16 @@ public class Unit {
 				
 				}
 			}
+	}
+	
+	
+	public boolean isAttackable(Unit unit){
+		double num = this.location.distance(unit.location);
+		if(num>=this.range){
+			return false;
 		}
+		else 
+			return true;
 	}
 	
 	

@@ -92,7 +92,8 @@ public class Controller {
 					}
 					System.out.println("누구를 공격하시겠습니까? \n");
 					int num2 = scanner.nextInt()-1;
-					if(num2+1 <=list.size()){
+					
+					if(num2+1 <=list.size() && list.get(num).isAttackable(list.get(num2))){
 						list.get(num).attack(list.get(num2));
 					}else{
 						System.out.println("공격할 수 없습니다.");
