@@ -4,15 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import listener.OnDiedListener;
 import Model.FireBet;
 import Model.Marine;
 import Model.Unit;
+
+import com.kyh0209.Module;
+import com.won2gonzo.MyModule;
 
 public class Controller {
 	static List<Unit> list =new ArrayList<Unit>();
 	static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {
+		
+		
+		Module m = new Module();
+		m.run();
+		
+		MyModule m2 = new MyModule();
+		m2.run();
 		
 		while(true){
 			System.out.println("--------------------------------------------");
@@ -27,6 +38,16 @@ public class Controller {
 				System.out.println("마린의 이름:");
 				String name = scanner.next();
 				Marine marine = new Marine(name);
+				
+				OnDiedListener onDiedListenerImpl = new OnDiedListener(){
+					public void onDied(){
+						System.out.println(name +"가 죽었습니다");
+					}
+				};
+				marine.setOnDiedListener(onDiedListenerImpl);
+				
+				
+				
 				list.add(marine);
 				break;
 				
@@ -61,12 +82,12 @@ public class Controller {
 					Unit unit = list.get(unitNum);
 					
 					System.out.print("이동할 거리를 입력해주세요(x,y):\nx:");
-					int Dx=scanner.nextInt();
+					int dx=scanner.nextInt();
 					
 					System.out.print("y:");
-					int Dy=scanner.nextInt();
+					int dy=scanner.nextInt();
 			
-					unit.move(Dx, Dy);
+					unit.move(dx, dy);
 					
 				}else{
 					System.out.println("이동할 수 없습니다");
@@ -92,7 +113,7 @@ public class Controller {
 					}
 					System.out.println("누구를 공격하시겠습니까? \n");
 					int num2 = scanner.nextInt()-1;
-					if(num2+1 <=list.size()){
+					if(num2+1 <=list.size() && list.get(num).isAttackable(list.get(num2))){
 						list.get(num).attack(list.get(num2));
 					}else{
 						System.out.println("공격할 수 없습니다.");

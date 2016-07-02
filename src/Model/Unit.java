@@ -1,6 +1,8 @@
 package Model;
 
-public class Unit {
+import listener.OnDiedListener;
+
+public abstract class Unit {
 
 	protected int hp;
 	protected int hit;
@@ -8,8 +10,19 @@ public class Unit {
 	protected Location location;
 	protected int range;
 	
+	private OnDiedListener onDiedListener;
 	
 	
+	
+	
+	public OnDiedListener getOnDiedListener() {
+		return onDiedListener;
+	}
+
+	public void setOnDiedListener(OnDiedListener onDiedListener) {
+		this.onDiedListener = onDiedListener;
+	}
+
 	public Unit(int hp,int hit,int range, String name){
 	
 		this.hp=hp;
@@ -20,6 +33,12 @@ public class Unit {
 		
 		
 	}
+	
+	public abstract void bark();
+	
+	
+	
+	
 	public void move(int x, int y){
 		this.location.work(x, y);
 		
@@ -34,26 +53,39 @@ public class Unit {
 		System.out.println(this.location);
 	}
 	
-
-	
-	public void attack(Unit unit){
+	public boolean isAttackable(Unit unit){
 		double num = this.location.distance(unit.location);
 		if(num>=this.range){
-			System.out.println("거리가 멀어 공격할 수 없습니다");
-		}else{
+			return false;
+		}
+		else 
+			return true;
+	}
+	
+	public void attack(Unit unit){
+
 			if(unit.hp<=0){
 				System.out.println("더이상 공격할 수 없습니다.");
+				
 			}else{
 				unit.hp = unit.hp - this.hit;
+				
 				System.out.println(this.name +"이(가) " +unit.name+"을(를) 공격했습니다.\n"+unit.name+"의 hp가 "+this.hit+" 닳았습니다.\n");
 		
 				if(unit.hp <= 0){
-					System.out.println(unit.name +"의 hp가 0이 되어 죽었습니다.\n");
+					
+					OnDiedListener targetOnDiedListener = unit.getOnDiedListener();
+					if(targetOnDiedListener !=null){
+						targetOnDiedListener.onDied();
+					}
+					
 				
 				}
 			}
-		}
+		
 	}
+	
+
 	
 	
 	public void portion(int x){

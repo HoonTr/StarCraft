@@ -7,6 +7,10 @@ public class FireBet extends Unit{
 		this.name=name;
 	}
 
+	public void bark(){
+		System.out.println("파이어뱃입니다");
+		
+	}
 	
 	public void state(){
 		
