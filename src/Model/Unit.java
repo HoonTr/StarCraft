@@ -53,6 +53,7 @@ public abstract class Unit {
 		System.out.println(this.location);
 	}
 	
+<<<<<<< HEAD
 	public boolean isAttackable(Unit unit){
 		double num = this.location.distance(unit.location);
 		if(num>=this.range){
@@ -61,6 +62,9 @@ public abstract class Unit {
 		else 
 			return true;
 	}
+=======
+
+>>>>>>> d8c1999da22f104f8bfe0a7947af76ce64da30e3
 	
 	public void attack(Unit unit){
 
@@ -82,7 +86,20 @@ public abstract class Unit {
 				
 				}
 			}
+<<<<<<< HEAD
 		
+=======
+	}
+	
+	
+	public boolean isAttackable(Unit unit){
+		double num = this.location.distance(unit.location);
+		if(num>=this.range){
+			return false;
+		}
+		else 
+			return true;
+>>>>>>> d8c1999da22f104f8bfe0a7947af76ce64da30e3
 	}
 	
 
